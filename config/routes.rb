@@ -1,3 +1,7 @@
 get '/live' do
-  HealthCheckController.get
+  HealthCheckController.new(self).status
+end
+
+post '/users' do
+  UserController.new(self).create
 end

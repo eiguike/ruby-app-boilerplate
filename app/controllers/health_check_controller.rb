@@ -1,5 +1,5 @@
-class HealthCheckController
-  def self.get
+class HealthCheckController < ApplicationController
+  def status
     "ok"
   end
 end
