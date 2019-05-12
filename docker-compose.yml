@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.4.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+  web:
+    build: .
+    command: ruby main.rb
+    environment:
+      POSTGRES_HOST: db
+      APP_ENV: production
+    volumes:
+      - .:/ruby-app
+    ports:
+      - "4567:4567"
+    depends_on:
+      - db
