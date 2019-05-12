@@ -26,8 +26,11 @@ class ApplicationController
     return @params if @permitted_params.empty?
     missing_fields = []
     returned_params = @permitted_params.reduce({}) do |aux, key|
-      (missing_fields << key.first.to_s) if @params[key.first.to_s].nil?
-      aux.merge("#{key.first}": @params[key.first.to_s]) unless @params[key.first.to_s].nil?
+      if @params[key.first.to_s].nil?
+        missing_fields << key.first.to_s
+        next aux
+      end
+      aux.merge("#{key.first}": @params[key.first.to_s])
     end
 
     raise BadRequestException.new(missing_fields) if missing_fields.any?
