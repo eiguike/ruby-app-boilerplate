@@ -1,4 +1,4 @@
 require 'sinatra' 
 
-require './app/controller/health_check_controller'
+require './app/controllers/health_check_controller'
 require './config/routes'
