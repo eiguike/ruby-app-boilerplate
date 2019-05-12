@@ -1,6 +1,7 @@
 require 'sinatra' 
 require 'pry'
 require 'active_record'
+require 'require_all'
 
 require_all './app'
 require_all './config'
