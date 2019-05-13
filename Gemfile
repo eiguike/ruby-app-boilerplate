@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'pg'
+gem 'bcrypt'
 gem 'sinatra'
 gem 'require_all'
 gem 'standalone_migrations'
