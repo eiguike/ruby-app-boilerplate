@@ -4,9 +4,7 @@ describe UserController do
   include Rack::Test::Methods
 
   let(:response) { post '/users', json, {'CONTENT_TYPE' => 'application/json'} }
-  let(:body) { 
-    binding.pry
-    JSON.parse(response.body) }
+  let(:body) { JSON.parse(response.body) }
 
   context "bad requests response without its two mandatory nodes" do
     let(:json){ {}.to_json }
