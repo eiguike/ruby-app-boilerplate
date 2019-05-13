@@ -3,7 +3,7 @@ class ApplicationController
 
   def initialize(routes)
     @routes = routes
-    @params = (JSON.parse(routes.request.body.read) rescue {})
+    @params = (JSON.parse(routes.request.body.read) rescue routes.params) 
     @permitted_params = {}
   end
 
