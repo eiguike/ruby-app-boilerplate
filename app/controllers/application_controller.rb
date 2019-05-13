@@ -3,7 +3,7 @@ class ApplicationController
 
   def initialize(routes)
     @routes = routes
-    @params = (JSON.parse(routes.request.body.read) rescue routes.params) 
+    @params = parse_params
     @permitted_params = {}
   end
 
@@ -35,6 +35,11 @@ class ApplicationController
 
     raise BadRequestException.new(missing_fields) if missing_fields.any?
     returned_params
+  end
+
+  private
+  def parse_params
+    JSON.parse(@routes.request.body.read).merge(@routes.params) rescue @routes.params
   end
 
 end
