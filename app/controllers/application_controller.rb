@@ -12,7 +12,7 @@ class ApplicationController
   end
 
   def present(options = {})
-    status = options[:status] || 200
+    @routes.status(options[:status] || 200)
     return options[:payload]
   end
 

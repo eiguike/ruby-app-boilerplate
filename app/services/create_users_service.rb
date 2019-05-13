@@ -12,6 +12,8 @@ class CreateUsersService
     instantiate_new_user
     set_user_information
     save_user
+
+    return @user
   end
 
   private

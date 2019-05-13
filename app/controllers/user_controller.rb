@@ -5,6 +5,8 @@ class UserController < ApplicationController
       param password: { type: String }
     end
 
-    CreateUsersService.perform(user_entity: User, params: params)
+    user = CreateUsersService.perform(user_entity: User, params: params)
+
+    present(payload: user.extend(Presenters::User).to_json, status: 201)
   end
 end
