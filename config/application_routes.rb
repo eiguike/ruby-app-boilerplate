@@ -11,6 +11,9 @@ class ApplicationRoutes < Sinatra::Base
       return {
         "msg": "Already exists this resource"
       }.to_json
+    rescue NotFoundException => exception
+      status 404
+      exception.to_json
     rescue BadRequestException => exception
       status 400
       exception.to_json
