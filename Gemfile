@@ -10,14 +10,13 @@ gem "standalone_migrations"
 gem "activerecord"
 gem "activesupport"
 
-group :development do
+group :test, :development do
   gem "pry"
-  gem "standard"
-end
-
-group :test do
-  gem "rspec"
+  gem "factory_bot"
   gem "ffaker"
   gem "rack-test"
-  gem "factory_bot"
+  gem "rspec"
+  gem "rubocop"
+  gem "rubocop-performance"
+  gem "standard"
 end
