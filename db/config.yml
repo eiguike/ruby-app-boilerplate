@@ -4,7 +4,7 @@ default: &default
   user: postgres
   password: postgres
   pool: 5
-  host: db
+  host: <%= ENV["POSTGRES_HOST"] %>
 
 development:
   <<: *default
