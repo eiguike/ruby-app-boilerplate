@@ -7,6 +7,9 @@ gem 'sinatra'
 gem 'require_all'
 gem 'standalone_migrations'
 
+gem 'activerecord'
+gem 'activesupport'
+
 group :development do
   gem 'pry'
 end
