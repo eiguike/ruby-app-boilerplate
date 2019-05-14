@@ -15,8 +15,6 @@ services:
       POSTGRES_USER: ruby-app
       POSTGRES_PASSWORD: ruby-app-development
       APP_ENV: development
-    volumes:
-      - .:/ruby-app
     ports:
       - "4567:4567"
     depends_on:
