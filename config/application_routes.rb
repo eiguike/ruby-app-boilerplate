@@ -1,4 +1,8 @@
 class ApplicationRoutes < Sinatra::Base
+
+  set :bind, '0.0.0.0'
+  set :show_exceptions, false
+
   before do
     content_type 'application/json'
   end
@@ -7,7 +11,7 @@ class ApplicationRoutes < Sinatra::Base
     begin
       raise err
     rescue ActiveRecord::RecordNotUnique => exception
-      status 202
+      status 409
       return {
         "msg": "Already exists this resource"
       }.to_json
