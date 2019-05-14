@@ -2,11 +2,11 @@ describe UserController do
   include Rack::Test::Methods
 
   context "POST /users" do
-    let(:response) { post '/users', json, {'CONTENT_TYPE' => 'application/json'} }
+    let(:response) { post "/users", json, {"CONTENT_TYPE" => "application/json"} }
     let(:body) { JSON.parse(response.body) }
 
     context "bad requests response without its two mandatory nodes" do
-      let(:json){ {}.to_json }
+      let(:json) { {}.to_json }
 
       before do
         response
@@ -20,7 +20,7 @@ describe UserController do
     end
 
     context "bad requests response without login" do
-      let(:json){ { "password": "testpassword" }.to_json }
+      let(:json) { {"password": "testpassword"}.to_json }
 
       before do
         response
@@ -33,7 +33,7 @@ describe UserController do
     end
 
     context "bad requests response without login" do
-      let(:json){ { "login": "somelogin@huaheuae.com" }.to_json }
+      let(:json) { {"login": "somelogin@huaheuae.com"}.to_json }
 
       before do
         response
@@ -46,8 +46,8 @@ describe UserController do
     end
 
     context "success to create an user" do
-      let(:json){ { "login": "test@test.com", "password": "passwordtest" }.to_json }
-      let(:open_struct) { OpenStruct.new(:login => "test@test.com", :password => "passwordtest") }
+      let(:json) { {"login": "test@test.com", "password": "passwordtest"}.to_json }
+      let(:open_struct) { OpenStruct.new(login: "test@test.com", password: "passwordtest") }
 
       before do
         allow(CreateUsersService).to receive(:perform).and_return open_struct

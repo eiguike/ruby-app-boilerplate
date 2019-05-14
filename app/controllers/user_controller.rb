@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   def show
     set_params do |options|
-      param login: { type: String }
+      param login: {type: String}
     end
 
     user = User.find_by(login: params[:login])
@@ -10,9 +10,9 @@ class UserController < ApplicationController
     present(payload: user.extend(Presenters::User).to_json, status: 200)
   end
 
-  def delete 
+  def delete
     set_params do |options|
-      param login: { type: String }
+      param login: {type: String}
     end
 
     user = User.find_by(login: params[:login])
@@ -24,8 +24,8 @@ class UserController < ApplicationController
 
   def create
     set_params do |options|
-      param login: { type: String }
-      param password: { type: String }
+      param login: {type: String}
+      param password: {type: String}
     end
 
     user = CreateUsersService.perform(user_entity: User, params: params)
@@ -35,8 +35,8 @@ class UserController < ApplicationController
 
   def update
     set_params do |options|
-      param login: { type: String }
-      param password: { type: String }
+      param login: {type: String}
+      param password: {type: String}
     end
 
     user = UpdateUsersService.perform(user_entity: User, params: params)

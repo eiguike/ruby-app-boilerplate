@@ -7,7 +7,7 @@ class StandardException < StandardError
   def to_json
     {
       "error": @msg,
-      "field": @field
+      "field": @field,
     }.to_json
   end
 end

@@ -1,5 +1,5 @@
 class UpdateUsersService
-  def self.perform(args={})
+  def self.perform(args = {})
     new(args).perform
   end
 
@@ -11,12 +11,13 @@ class UpdateUsersService
   def perform
     find_user
     set_user_information
-    update_user 
+    update_user
 
-    return @user
+    @user
   end
 
   private
+
   def find_user
     @user = @user_entity.find_by(login: @params[:login])
     raise NotFoundException.new(:login) if @user.nil?

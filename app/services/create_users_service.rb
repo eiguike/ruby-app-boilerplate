@@ -1,5 +1,5 @@
 class CreateUsersService
-  def self.perform(args={})
+  def self.perform(args = {})
     new(args).perform
   end
 
@@ -13,10 +13,11 @@ class CreateUsersService
     set_user_information
     save_user
 
-    return @user
+    @user
   end
 
   private
+
   def instantiate_new_user
     @user = @user_entity.new
   end

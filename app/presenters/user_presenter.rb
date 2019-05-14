@@ -2,7 +2,7 @@ module Presenters
   module User
     def to_json
       {
-        "login": self.login
+        "login": login,
       }.to_json
     end
   end

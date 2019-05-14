@@ -4,5 +4,6 @@ class CreateUsersTable < ActiveRecord::Migration[5.2]
       t.string :login
       t.string :password
     end
-    add_index :users, :login, unique: true  end
+    add_index :users, :login, unique: true
+  end
 end
