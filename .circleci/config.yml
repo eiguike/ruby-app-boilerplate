@@ -34,8 +34,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build docker-container
-          command: docker-compose build
+          name: Starting Container with Database
+          command: docker-compose up -d db
       - run:
           name: Executing rake tasks
           command: |
