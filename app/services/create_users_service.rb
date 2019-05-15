@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUsersService
   def self.perform(args = {})
     new(args).perform
@@ -18,16 +20,16 @@ class CreateUsersService
 
   private
 
-  def instantiate_new_user
-    @user = @user_entity.new
-  end
+    def instantiate_new_user
+      @user = @user_entity.new
+    end
 
-  def set_user_information
-    @user.login = @params[:login]
-    @user.password = @params[:password]
-  end
+    def set_user_information
+      @user.login = @params[:login]
+      @user.password = @params[:password]
+    end
 
-  def save_user
-    @user.save!
-  end
+    def save_user
+      @user.save!
+    end
 end

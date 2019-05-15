@@ -1,10 +1,10 @@
-class Routes < ApplicationRoutes
-  get "/live" do
-    HealthCheckController.new(self).status
-  end
+# frozen_string_literal: true
 
-  post "/users" do UserController.new(self).create end
-  get "/users/:login" do UserController.new(self).show end
-  patch "/users/:login" do UserController.new(self).update end
-  delete "/users/:login" do UserController.new(self).delete end
+class Routes < ApplicationRoutes
+  get("/live") { HealthCheckController.new(self).status }
+
+  post("/users") { UserController.new(self).create }
+  get("/users/:login") { UserController.new(self).show }
+  patch("/users/:login") { UserController.new(self).update }
+  delete("/users/:login") { UserController.new(self).delete }
 end

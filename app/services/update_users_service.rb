@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateUsersService
   def self.perform(args = {})
     new(args).perform
@@ -18,16 +20,16 @@ class UpdateUsersService
 
   private
 
-  def find_user
-    @user = @user_entity.find_by(login: @params[:login])
-    raise NotFoundException.new(:login) if @user.nil?
-  end
+    def find_user
+      @user = @user_entity.find_by(login: @params[:login])
+      raise NotFoundException.new(:login) if @user.nil?
+    end
 
-  def set_user_information
-    @user.password = @params[:password]
-  end
+    def set_user_information
+      @user.password = @params[:password]
+    end
 
-  def update_user
-    @user.save!
-  end
+    def update_user
+      @user.save!
+    end
 end

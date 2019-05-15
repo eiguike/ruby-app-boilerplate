@@ -1,15 +1,26 @@
 require: rubocop-performance
 
+Documentation: # Disabling documentation cop
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'spec/**/*'
+    - 'db/**/*'
   TargetRubyVersion: 2.6
-  Documentation: # Disabling documentation cop
-    Enabled: false
 
 Performance:
   Exclude:
     - '**/test/**/*'
+
+Style/RaiseArgs:
+  Enabled: false
+
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
 
 # Prefer &&/|| over and/or.
 Style/AndOr:

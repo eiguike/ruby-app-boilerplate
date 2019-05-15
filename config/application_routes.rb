@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationRoutes < Sinatra::Base
   set :bind, "0.0.0.0"
   set :show_exceptions, false
@@ -11,13 +13,13 @@ class ApplicationRoutes < Sinatra::Base
   rescue ActiveRecord::RecordNotUnique
     status 409
     return {
-      "msg": "Already exists this resource",
+      "msg": "Already exists this resource"
     }.to_json
-  rescue NotFoundException => exception
+  rescue NotFoundException => e
     status 404
-    exception.to_json
-  rescue BadRequestException => exception
+    e.to_json
+  rescue BadRequestException => e
     status 400
-    exception.to_json
+    e.to_json
   end
 end
