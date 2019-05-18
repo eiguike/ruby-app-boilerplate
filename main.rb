@@ -9,11 +9,7 @@ require "bcrypt"
 require "erb"
 
 require_all "./app"
-require_all "./config"
-
-ActiveRecord::Base.establish_connection(
-  YAML.safe_load(ERB.new(File.new("db/config.yml").read)
-    .result(binding), aliases: true)[ENV["APP_ENV"]]
-)
+require_relative "./config/application_routes"
+require_relative "./config/routes"
 
 Routes.run!

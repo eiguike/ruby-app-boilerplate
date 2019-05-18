@@ -10,7 +10,8 @@ require "require_all"
 require "sinatra"
 
 require_all "./app"
-require_all "./config"
+require_relative "../config/application_routes"
+require_relative "../config/routes"
 
 ActiveRecord::Base.establish_connection(
   YAML.safe_load(ERB.new(File.new("db/config.yml").read)
