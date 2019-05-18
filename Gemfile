@@ -15,7 +15,7 @@ gem "standalone_migrations"
 
 group :test, :development do
   gem "factory_bot"
-  gem "ffaker"
+  gem "faker"
   gem "pry"
   gem "rack-test"
   gem "rspec"

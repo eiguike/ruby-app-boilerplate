@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationRoutes < Sinatra::Base
-
   configure do
     set :bind, "0.0.0.0"
     set :show_exceptions, false
+    set :raise_errors, false
     set :server, :puma
   end
 

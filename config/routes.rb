@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Routes < ApplicationRoutes
-  get("/live") { HealthCheckController.new(self).status }
+  get("/health") { HealthCheckController.new(self).status }
 
   post("/users") { UserController.new(self).create }
   get("/users/:login") { UserController.new(self).show }
