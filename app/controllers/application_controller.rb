@@ -37,9 +37,9 @@ class ApplicationController
   private
 
     def parse_params
-      JSON.parse(@routes.request.body.read).merge(@routes.params)
+      JSON.parse(@routes.request.body.read).merge(@routes.params).with_indifferent_access
     rescue JSON::ParserError, TypeError
-      @routes.params
+      @routes.params.with_indifferent_access
     end
 
     def extract_parameters
