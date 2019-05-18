@@ -8,8 +8,11 @@ preload_app!
 
 rackup      DefaultRackup
 port        ENV["PORT"]     || 3000
-environment ENV["RACK_ENV"] || "development"
+environment ENV["APP_ENV"] || "development"
 
 on_worker_boot do
-  ActiveRecord::Base.establish_connection
+  ActiveRecord::Base.establish_connection(
+    YAML.safe_load(ERB.new(File.new("db/config.yml").read)
+    .result(binding), aliases: true)[ENV["APP_ENV"]]
+  )
 end
