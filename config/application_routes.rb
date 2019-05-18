@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationRoutes < Sinatra::Base
-  set :bind, "0.0.0.0"
-  set :show_exceptions, false
+
+  configure do
+    set :bind, "0.0.0.0"
+    set :show_exceptions, false
+    set :server, :puma
+  end
 
   before do
     content_type "application/json"
