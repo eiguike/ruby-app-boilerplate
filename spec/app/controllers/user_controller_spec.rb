@@ -1,9 +1,10 @@
 describe UserController do
   include Rack::Test::Methods
 
+  let(:body) { JSON.parse(response.body) }
+
   context "POST /users" do
     let(:response) { post "/users", json, {"CONTENT_TYPE" => "application/json"} }
-    let(:body) { JSON.parse(response.body) }
 
     context "bad requests response without its two mandatory nodes" do
       let(:json) { {}.to_json }
@@ -59,6 +60,26 @@ describe UserController do
   end
 
   context "GET /users/:login" do
+    let(:response) { get "/users/#{login}", {"CONTENT_TYPE" => "application/json"} }
+
+    before do
+      response
+    end
+
+    context "when an account exists" do
+      let(:login) { create(:user).login }
+
+      it { expect(response.status).to eq(200) }
+      it { expect(body["login"]).to eq(login) }
+    end
+
+    context "when an account does not exists" do
+      let(:login) { Faker::Lorem.characters(10) }
+
+      it { expect(response.status).to eq(404) }
+      it { expect(body["error"]).to eq("login not found") }
+      it { expect(body["field"]).to eq("login") }
+    end
   end
 
   context "PATCH /users/:login" do
