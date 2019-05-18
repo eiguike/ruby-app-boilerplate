@@ -2,6 +2,6 @@
 
 class HealthCheckController < ApplicationController
   def status
-    "ok"
+    { "result": "ok" }.to_json
   end
 end
