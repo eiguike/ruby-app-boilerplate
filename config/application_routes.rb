@@ -3,6 +3,7 @@
 class ApplicationRoutes < Sinatra::Base
   set :bind, "0.0.0.0"
   set :show_exceptions, false
+  set :raise_errors, false
 
   before do
     content_type "application/json"

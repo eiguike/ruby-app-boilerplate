@@ -1,14 +1,20 @@
+require "active_record"
+require "active_support"
+require "bcrypt"
+require "erb"
+require "factory_bot"
+require "faker"
+require "pry"
+require "rack/test"
 require "require_all"
 require "sinatra"
-require "pry"
-require "active_record"
-require "rack/test"
 
 require_all "./app"
 require_all "./config"
 
 ActiveRecord::Base.establish_connection(
-  YAML.load(ERB.new(File.new("db/config.yml").read).result(binding))["test"]
+  YAML.safe_load(ERB.new(File.new("db/config.yml").read)
+    .result(binding), aliases: true)[ENV["APP_ENV"]]
 )
 
 RSpec.configure do |config|
@@ -21,6 +27,12 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 end
 
 def app
