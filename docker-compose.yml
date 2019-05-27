@@ -8,9 +8,14 @@ services:
     ports:
       - '5432:5432'
   web:
+    volumes:
+      - .:/ruby-app
     build: .
     command: ruby main.rb
     environment:
+      PORT: 4567
+      PUMA_WORKERS: 2
+      PUMA_MAX_THREADS: 5
       POSTGRES_HOST: db
       POSTGRES_USER: ruby-app
       POSTGRES_PASSWORD: ruby-app-development
