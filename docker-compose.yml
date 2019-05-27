@@ -8,8 +8,8 @@ services:
     ports:
       - '5432:5432'
   web:
-    volumes:
-      - .:/ruby-app
+    #volumes:
+    #  - .:/ruby-app
     build: .
     command: ruby main.rb
     environment:
