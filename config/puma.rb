@@ -17,8 +17,8 @@ on_worker_boot do
   )
 
   Lib::Logger.configure do |logger|
-    logger.set_information :host => "TESTING_HOST"
-    logger.set_information :environment => ENV["APP_ENV"]
-    logger.set_information :application => "ruby-app"
+    logger.add_information host: "TESTING_HOST"
+    logger.add_information environment: ENV["APP_ENV"]
+    logger.add_information application: "ruby-app"
   end
 end

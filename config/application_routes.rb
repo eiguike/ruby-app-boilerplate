@@ -13,12 +13,12 @@ class ApplicationRoutes < Sinatra::Base
   end
 
   before do
-    logger.info "#{self.env["REQUEST_METHOD"]} #{self.env["REQUEST_PATH"]} Started"
+    logger.info "#{env['REQUEST_METHOD']} #{env['REQUEST_PATH']} Started"
     content_type "application/json"
   end
 
   after do
-    logger.info "#{self.env["REQUEST_METHOD"]} #{self.env["REQUEST_PATH"]} Finished"
+    logger.info "#{env['REQUEST_METHOD']} #{env['REQUEST_PATH']} Finished"
   end
 
   error do |err|
