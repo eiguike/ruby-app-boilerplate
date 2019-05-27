@@ -18,6 +18,12 @@ ActiveRecord::Base.establish_connection(
     .result(binding), aliases: true)[ENV["APP_ENV"]]
 )
 
+Lib::Logger.configure do |logger|
+  logger.set_information :host => "TESTING_HOST"
+  logger.set_information :environment => ENV["APP_ENV"]
+  logger.set_information :application => "ruby-app"
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
