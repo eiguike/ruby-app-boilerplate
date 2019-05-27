@@ -15,4 +15,10 @@ on_worker_boot do
     YAML.safe_load(ERB.new(File.new("db/config.yml").read)
     .result(binding), aliases: true)[ENV["APP_ENV"]]
   )
+
+  Lib::Logger.configure do |logger|
+    logger.set_information :host => "TESTING_HOST"
+    logger.set_information :environment => ENV["APP_ENV"]
+    logger.set_information :application => "ruby-app"
+  end
 end

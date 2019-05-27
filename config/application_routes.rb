@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../app/helpers/logger_helper"
+
 class ApplicationRoutes < Sinatra::Base
+  include Helpers::LoggerHelper
+
   configure do
     set :bind, "0.0.0.0"
     set :show_exceptions, false
@@ -9,7 +13,12 @@ class ApplicationRoutes < Sinatra::Base
   end
 
   before do
+    logger.info "#{self.env["REQUEST_METHOD"]} #{self.env["REQUEST_PATH"]} Started"
     content_type "application/json"
+  end
+
+  after do
+    logger.info "#{self.env["REQUEST_METHOD"]} #{self.env["REQUEST_PATH"]} Finished"
   end
 
   error do |err|
