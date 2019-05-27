@@ -9,6 +9,7 @@ module Lib
     class << self
       attr_accessor :information
       attr_accessor :logger_object
+      attr_accessor :request_id
 
       private
 
@@ -19,12 +20,19 @@ module Lib
                 timestamp: datetime,
                 severity: severity,
                 message: message
-              }.merge(information).to_json + "\n"
+              }.merge(with_request_id)
+                .merge(Logger.information).to_json + "\n"
             end
         end
 
         def initalize_logger(output)
           self.logger_object = ::Logger.new(output)
+        end
+
+        def with_request_id
+          return {} if Logger.request_id.nil?
+
+          Logger.request_id.call
         end
     end
 
@@ -35,9 +43,13 @@ module Lib
       yield self
     end
 
+    def self.add_request_id(callback)
+      Logger.request_id = callback
+    end
+
     def self.add_information(options = {})
-      information = {} if information.nil?
-      information.merge!(options)
+      Logger.information = {} if Logger.information.nil?
+      Logger.information.merge!(options)
     end
   end
 end

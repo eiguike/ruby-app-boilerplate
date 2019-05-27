@@ -7,6 +7,7 @@ require "active_support"
 require "require_all"
 require "bcrypt"
 require "erb"
+require "rack/request-id-passthrough"
 
 require_all "./app"
 require_relative "./config/application_routes"
