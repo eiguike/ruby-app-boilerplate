@@ -17,8 +17,11 @@ on_worker_boot do
   )
 
   Lib::Logger.configure do |logger|
-    logger.add_information host: "TESTING_HOST"
+    logger.add_information host: ENV["HOSTNAME"]
     logger.add_information environment: ENV["APP_ENV"]
     logger.add_information application: "ruby-app"
+    logger.add_request_id(proc {
+      { "request_id": Thread.current[:request_id_passthrough] }
+    })
   end
 end

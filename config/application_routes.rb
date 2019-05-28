@@ -10,6 +10,7 @@ class ApplicationRoutes < Sinatra::Base
     set :show_exceptions, false
     set :raise_errors, false
     set :server, :puma
+    use Rack::RequestIDPassthrough
   end
 
   before do
