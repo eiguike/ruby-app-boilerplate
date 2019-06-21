@@ -1,5 +1,21 @@
 version: '3'
 services:
+  proxy:
+    container_name: proxy
+    image: dockercloud/haproxy
+    depends_on:
+      - api
+    environment:
+      - BALANCE=leastconn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints: [node.role == manager]
   db:
     image: postgres:9.4.5
     environment:
@@ -7,11 +23,13 @@ services:
       POSTGRES_PASSWORD: ruby-app-development
     ports:
       - '5432:5432'
-  web:
-    #volumes:
-    #  - .:/ruby-app
-    build: .
-    command: ruby main.rb
+    networks:
+      - web
+
+  api:
+    image: rubyapp:latest
+    deploy:
+      replicas: 3
     environment:
       PORT: 4567
       PUMA_WORKERS: 2
@@ -19,8 +37,14 @@ services:
       POSTGRES_HOST: db
       POSTGRES_USER: ruby-app
       POSTGRES_PASSWORD: ruby-app-development
-      APP_ENV: development
+      RAILS_ENV: production
     ports:
       - "4567:4567"
     depends_on:
       - db
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay
