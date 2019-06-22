@@ -37,9 +37,9 @@ module Lib
     end
 
     def self.configure
-      initalize_logger("/dev/null") if ENV["APP_ENV"] == "test"
-      initalize_logger(STDOUT) if APPLIED_LOGGER.include? ENV["APP_ENV"]
-      apply_formatter if ENV["APP_ENV"] == "production"
+      initalize_logger("/dev/null") if ENV["RAILS_ENV"] == "test"
+      initalize_logger(STDOUT) if APPLIED_LOGGER.include? ENV["RAILS_ENV"]
+      apply_formatter if ENV["RAILS_ENV"] == "production"
       yield self
     end
 

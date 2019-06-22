@@ -8,17 +8,17 @@ preload_app!
 
 rackup      DefaultRackup
 port        ENV["PORT"] || 4567
-environment ENV["APP_ENV"] || "development"
+environment ENV["RAILS_ENV"] || "development"
 
 on_worker_boot do
   ActiveRecord::Base.establish_connection(
     YAML.safe_load(ERB.new(File.new("db/config.yml").read)
-    .result(binding), aliases: true)[ENV["APP_ENV"]]
+    .result(binding), aliases: true)[ENV["RAILS_ENV"].to_s]
   )
 
   Lib::Logger.configure do |logger|
     logger.add_information host: ENV["HOSTNAME"]
-    logger.add_information environment: ENV["APP_ENV"]
+    logger.add_information environment: ENV["RAILS_ENV"]
     logger.add_information application: "ruby-app"
     logger.add_request_id(proc {
       { "request_id": Thread.current[:request_id_passthrough] }

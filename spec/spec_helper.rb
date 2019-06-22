@@ -16,12 +16,12 @@ require_relative "../config/routes"
 
 ActiveRecord::Base.establish_connection(
   YAML.safe_load(ERB.new(File.new("db/config.yml").read)
-    .result(binding), aliases: true)[ENV["APP_ENV"]]
+    .result(binding), aliases: true)[ENV["RAILS_ENV"]]
 )
 
 Lib::Logger.configure do |logger|
   logger.add_information host: "TESTING_HOST"
-  logger.add_information environment: ENV["APP_ENV"]
+  logger.add_information environment: ENV["RAILS_ENV"]
   logger.add_information application: "ruby-app"
 end
 
