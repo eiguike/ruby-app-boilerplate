@@ -12,8 +12,10 @@ This is starting point to create a fast web app using Sinatra. I didn't had the 
     - Rake;
     - Rubocop;
     - Rspec;
+- HAProxy;
 - PostgreSQL;
 - Docker;
+- Docker Swarm;
 - CircleCI;
 
 #### Architecture:
@@ -38,6 +40,9 @@ graph LR
 > docker build -t rubyapp --no-cache . 
 > docker swarm init
 > docker stack deploy --compose-file=docker-compose.yml dev
+
+### To stop:
+> docker swarm leave --force
 
 #### To run tests:
 > docker-compose run -e RAILS_ENV=test web rake db:setup db:migrate
