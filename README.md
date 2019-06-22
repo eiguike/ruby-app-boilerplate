@@ -35,11 +35,12 @@ graph LR
 5. `git add .` and then `git push origin master`
 
 #### To start application:
-> docker-compose run web rake db:setup db:migrate
-> docker-compose up
+> docker build -t rubyapp --no-cache . 
+> docker swarm init
+> docker stack deploy --compose-file=docker-compose.yml dev
 
 #### To run tests:
-> docker-compose run -e APP_ENV=test web rake db:setup db:migrate
-> docker-compose run -e APP_ENV=test web rspec
+> docker-compose run -e RAILS_ENV=test web rake db:setup db:migrate
+> docker-compose run -e RAILS_ENV=test web rspec
 
 ---
