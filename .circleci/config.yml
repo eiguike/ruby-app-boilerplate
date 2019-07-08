@@ -42,31 +42,17 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Installing dependencies (Linux)
+          name: Bulding container
+          command: docker build -f docker/Dockerfile -t rubyapp --no-cache .
+      - run:
+          name: Wait Database to initialize and execute rake tasks
           command: |
-            sudo apt-get update -qq 
-            sudo apt-get install -y build-essential libpq-dev nodejs postgresql-client
-      - run:
-          name: Installing dependencies (Ruby)
-          command: bundle install
-      - run:
-          name: Starting Container with Database
-          command: |
-            docker run --name postgres \
-            -e POSTGRES_USER=${POSTGRES_USER} \
-            -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
-            -p 5432:5432 \
-            -d postgres:9.4.5
-            sleep 10
-      - run:
-          name: Wait Database to initialize
-          command: ./init/wait_db.sh
-      - run:
-          name: Executing rake tasks
-          command: rake db:drop db:create db:migrate db:seed
+            docker-compose run --service-ports api \
+            bundle install && ./init/wait_db.sh && \
+            rake db:drop db:create db:migrate db:seed
       - run:
           name: Execute tests
-          command: rspec
+          command: docker-compose run --service-ports api rspec
 
 workflows:
  version: 2
